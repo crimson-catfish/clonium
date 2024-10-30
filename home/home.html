@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Room Management</title>
+    <script src="home.js" defer></script>
+</head>
+<body>
+<div>
+    <div>
+        <label for="joinRoomCode">Enter room code if you have one:</label>
+        <br>
+        <input type="text" id="joinRoomCode" maxlength="6" placeholder="Enter code">
+        <button id="joinRoomButton" hidden="hidden">Join</button>
+    </div>
+    <br>
+    <div>
+        <label for="createRoomButton">Or make your own:</label>
+        <br>
+        <button id="createRoomButton">Create room</button>
+    </div>
+    <p id="roomCodeDisplay" style="display: none;">Room Code: <span id="roomCode"></span></p>
+    <p id="statusMessage"></p>
+</div>
+</body>
+</html>
