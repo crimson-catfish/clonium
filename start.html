@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clonium</title>
+    <link rel="stylesheet" href="../static/start.css">
+    <script src="../static/start.js" defer></script>
+</head>
+<body>
+<svg width="0" height="0">
+  <defs>
+    <filter id="goo">
+      <feGaussianBlur in="SourceGraphic" stdDeviation="7"  />
+      <feColorMatrix  mode="matrix" values="1 0 0  0   0
+                                  0 1 0  0   0
+                                  0 0 1  0   0
+                                  0 0 0 35  -7"  />
+      <feBlend in="SourceGraphic"  />
+    </filter>
+  </defs>
+</svg>
+<div class = "background"></div>
+<div class = "title">
+  <span class = "blue">C</span><!--
+--><span class = "green">L</span><!--
+--><span class = "yellow">O</span><!--
+--><span class = "red">N</span><!--
+--><span class = "green">I</span><!--
+--><span class = "yellow">U</span><!--
+--><span class = "blue">M</span>
+</div>
+<br>
+<br>
+<br>
+<div class="buttons">
+    <span class="button" id="oneDevice">ИГРА НА ОДНОМ УСТРОЙСТВЕ</span>
+</div>
+<br><br>
+<div class="buttons">
+    <span class="button" id="createRoom">CОЗДАТЬ КОМНАТУ</span>
+</div>
+<br><br>
+<div class="buttons">
+    <span class="button" id="joinRoom">ВОЙТИ В КОМНАТУ</span>
+</div>
+<!--<div class="multicolor-text">
+        CLONIUM
+</div>-->
+</body>
+</html>
