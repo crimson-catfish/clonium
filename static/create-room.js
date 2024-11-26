@@ -91,24 +91,10 @@ function createSectors(group, radius, colorOfSector) {
     const centerX = 0;
     const centerY = 0;
     const r = radius;
-    const sectors = [
-        { color: colorOfSector, angleStart: 0, angleEnd: angle },
-        { color: colorOfSector, angleStart: 2 * angle, angleEnd: 3 * angle },
-        { color: colorOfSector, angleStart: 4 * angle, angleEnd: 5 * angle },
-        { color: colorOfSector, angleStart: 6 * angle, angleEnd: 7 * angle },
-        { color: colorOfSector, angleStart: 8 * angle, angleEnd: 9 * angle },
-        { color: colorOfSector, angleStart: 10 * angle, angleEnd: 11 * angle },
-        { color: colorOfSector, angleStart: 12 * angle, angleEnd: 13 * angle },
-        { color: colorOfSector, angleStart: 14 * angle, angleEnd: 15 * angle },
-        { color: colorOfSector, angleStart: 16 * angle, angleEnd: 17 * angle },
-        { color: colorOfSector, angleStart: 18 * angle, angleEnd: 19 * angle },
-        { color: colorOfSector, angleStart: 20 * angle, angleEnd: 21 * angle },
-        { color: colorOfSector, angleStart: 22 * angle, angleEnd: 23 * angle },
-        { color: colorOfSector, angleStart: 24 * angle, angleEnd: 25 * angle },
-        { color: colorOfSector, angleStart: 26 * angle, angleEnd: 27 * angle },
-        { color: colorOfSector, angleStart: 28 * angle, angleEnd: 29 * angle },
-        { color: colorOfSector, angleStart: 30 * angle, angleEnd: 31 * angle }
-    ];
+    const sectors = [];
+    for (let i = 0; i < 32; i += 2){
+        sectors.push({color: colorOfSector, angleStart: i * angle, angleEnd: (i+1) * angle});
+    }
 
     sectors.forEach(sector => {
         const { color, angleStart, angleEnd } = sector;
