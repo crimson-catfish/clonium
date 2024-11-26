@@ -6,6 +6,7 @@ svg{position:absolute;}
     font-size:200px;
     filter:url(#goo);
     text-align: center;
+    cursor: default;
 }
 
 .blue {
@@ -49,6 +50,11 @@ svg{position:absolute;}
     border-radius: 20px;
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
     text-align: center;
+}
+
+.button:hover {
+    box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.6);
+    cursor: pointer;
 }
 
 #oneDevice {
