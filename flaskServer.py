@@ -7,17 +7,17 @@ def start():
     return render_template('start.html')
 
 
-@server.route('/create-room/<int:room_code>', methods=['POST'])
+@server.route('/create-room/<int:room_code>', methods=['GET'])
 def play_room(room_code):
     '''data = request.args.get('data')  # Получаем данные из URL'''
     return render_template('room.html')
 
 
-@server.route('/api/data', methods=['POST'])
-def receive_data():
-    data = request.json  # Получаем json данные из запроса
-    print(f"Полученные данные: {data}")  # Выводим полученные данные на консоль
-    response = {"message": "Данные успешно получены!", "received": data}
+@server.route('/request_room_code', methods=['POST'])
+def handle_request_room_code():
+    data = request.json
+    print(f"Полученные данные: {data}")
+    response = {'room_code': 666666}
     return jsonify(response)
 
 
