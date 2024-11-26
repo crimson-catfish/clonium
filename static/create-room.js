@@ -173,10 +173,17 @@ function setPriority2(object1, object2) {
     canvas.moveTo(object1, 2);
 }
 
+function getSettings(numberOfPlayers, formOfField) {
+    return {numberOfPlayers: numberOfPlayers, formOfField:formOfField};
+}
+
 let flagSelectedBlue = true;
 let flagSelectedRed = true;
 let flagGreenN = false;
 let flagGreenF = false;
+let numberOfPlayers = 2;
+let formOfField = 'triangle';
+
 canvas.on('mouse:down',  function(e) {
     if (e.target && blueCells.includes(e.target)) {
         if (flagSelectedBlue) {
@@ -196,14 +203,17 @@ canvas.on('mouse:down',  function(e) {
             if (e.target == blueCell2) {
                 setPriority3(blueCell2, blueCell3, blueCell4);
                 flagSelectedBlue = true;
+                numberOfPlayers = 2;
             }
             else if (e.target == blueCell3) {
                 setPriority3(blueCell3, blueCell2, blueCell4);
                 flagSelectedBlue = true;
+                numberOfPlayers = 3;
             }
             else if (e.target == blueCell4) {
                 setPriority3(blueCell4, blueCell3, blueCell2);
                 flagSelectedBlue = true;
+                numberOfPlayers = 4;
             }
         }
     }
@@ -225,18 +235,24 @@ canvas.on('mouse:down',  function(e) {
             if (e.target == redCellT) {
                 setPriority3(redCellT, redCellS, redCellH);
                 flagSelectedRed = true;
+                formOfField = 'triangle';
             }
             else if (e.target == redCellS) {
                 setPriority3(redCellS, redCellT, redCellH);
                 flagSelectedRed = true;
+                formOfField = 'square';
             }
             else if (e.target == redCellH) {
                 setPriority3(redCellH, redCellS, redCellT);
                 flagSelectedRed = true;
+                formOfField = 'hexagon';
             }
         }
     }
     else if (e.target && e.target == greenCell) {
+        if (flagSelectedBlue && flagSelectedRed) {
+            sendSettingsAndGo(getSettings(numberOfPlayers, formOfField));
+        }
         if (!flagSelectedBlue && !flagGreenN && !flagGreenF) {
             doAnimation(greenCellN, 'top', '+=100');
             flagGreenN = true;
@@ -247,3 +263,20 @@ canvas.on('mouse:down',  function(e) {
         }
     }
 });
+
+async function sendSettingsAndGo(data) {
+    try {
+        const response = await fetch('/request_room_code', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
+        });
+        const result = (await response.json());
+        room_code = result.room_code;
+        window.location.href = `/create-room/${room_code}`;
+    } catch (error) {
+        alert('Упс! Что-то пошло не так');
+    }
+}
