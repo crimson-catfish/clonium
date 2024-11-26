@@ -27,3 +27,10 @@ class Settings:
 
 def write_information(room_code: int, settings: Settings) -> None:
     LIST_OF_INFORMATION[room_code] = json.dumps(settings.__dict__())
+
+
+def generate_room_code() -> int:
+    room_code: int = random.randint(100000, 999999)
+    if LIST_OF_INFORMATION.get(room_code, 0) == 0:
+        return room_code
+    generate_room_code()
