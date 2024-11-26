@@ -104,6 +104,10 @@ function createSectors(group, radius, colorOfSector) {
     return group;
 }
 
+function add(object) {
+    canvas.add(object);
+}
+
 const blueCells = [];
 const redCells = [];
 const greenCells = [];
@@ -111,23 +115,23 @@ const greenCells = [];
 const blueCell2 = createBlueCell('2', 135, 15);
 const blueCell3 = createBlueCell('3', 135, 15);
 const blueCell4 = createBlueCell('4', 135, 15);
-canvas.add(blueCell4);
-canvas.add(blueCell3);
-canvas.add(blueCell2);
+add(blueCell4);
+add(blueCell3);
+add(blueCell2);
 
 const redCellT = createRedCell('Треугольник', 535, 15);
 const redCellS = createRedCell('Квадрат', 535, 15);
 const redCellH = createRedCell('Гексагон', 535, 15);
-canvas.add(redCellH);
-canvas.add(redCellS);
-canvas.add(redCellT);
+add(redCellH);
+add(redCellS);
+add(redCellT);
 
 const greenCell = createGreenCell('Начать игру', 335, 180);
 const greenCellN = createGreenCell('Выберите\n   число\n  игроков', 335, 180);
 const greenCellF = createGreenCell('Выберите\n   форму\n     поля', 335, 180);
-canvas.add(greenCellF);
-canvas.add(greenCellN);
-canvas.add(greenCell);
+add(greenCellF);
+add(greenCellN);
+add(greenCell);
 
 const shadow = new fabric.Shadow({
             color: 'black',
