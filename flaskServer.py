@@ -1,4 +1,7 @@
-from flask import Flask, render_template, redirect, url_for, request, jsonify
+from flask import Flask, render_template, request, jsonify
+from npm.conf import settings
+
+from back.supportive import generate_room_code, write_information, Settings, LIST_OF_INFORMATION
 
 server = Flask(__name__)
 
@@ -17,7 +20,10 @@ def play_room(room_code):
 def handle_request_room_code():
     data = request.json
     print(f"Полученные данные: {data}")
-    response = {'room_code': 666666}
+    room_code = generate_room_code()
+    write_information(room_code, data)
+    response = {'room_code': room_code}
+    print(LIST_OF_INFORMATION)
     return jsonify(response)
 
 
