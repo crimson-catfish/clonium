@@ -2,23 +2,32 @@ console.log("script started");
 
 const canvas = new fabric.Canvas('c1');
 
-const blueCell2 = createBlueCell('2', 135, 15);
-const blueCell3 = createBlueCell('3', 135, 15);
-const blueCell4 = createBlueCell('4', 135, 15);
+let blueCell2 = createBlueCell(135, 15);
+blueCell2 = addText(blueCell2, '2');
+let blueCell3 = createBlueCell(135, 15);
+blueCell3 = addText(blueCell3, '3');
+let blueCell4 = createBlueCell(135, 15);
+blueCell4 = addText(blueCell4, '4');
 add(blueCell4);
 add(blueCell3);
 add(blueCell2);
 
-const redCellT = createRedCell('Треугольник', 535, 15);
-const redCellS = createRedCell('Квадрат', 535, 15);
-const redCellH = createRedCell('Гексагон', 535, 15);
+let redCellT = createRedCell(535, 15);
+redCellT = addText(redCellT, 'Треугольник');
+let redCellS = createRedCell(535, 15);
+redCellS = addText(redCellS, 'Квадрат');
+let redCellH = createRedCell(535, 15);
+redCellH = addText(redCellH, 'Гексагон');
 add(redCellH);
 add(redCellS);
 add(redCellT);
 
-const greenCell = createGreenCell('Начать игру', 335, 180);
-const greenCellN = createGreenCell('Выберите\n   число\n  игроков', 335, 180);
-const greenCellF = createGreenCell('Выберите\n   форму\n     поля', 335, 180);
+let greenCell = createGreenCell(335, 180);
+greenCell = addText(greenCell, 'Начать игру');
+let greenCellN = createGreenCell(335, 180);
+greenCellN = addText(greenCellN, 'Выберите\n   число\n  игроков');
+let greenCellF = createGreenCell(335, 180);
+greenCellF = addText(greenCellF, 'Выберите\n   форму\n     поля');
 add(greenCellF);
 add(greenCellN);
 add(greenCell);
