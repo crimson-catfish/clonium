@@ -7,7 +7,7 @@
     background-image: url('img.jpg');
     background-size: cover;
     filter: blur(12px);
-    z-index: -1;
+    z-index: -2;
 }
 
 * {
@@ -84,12 +84,14 @@
 
 .field {
     max-width: 800px;
-    margin: 0px auto;
+    margin: 40px auto 0px auto;
     border-radius: 8px;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
     align-items: top;
 }
 
 #canvas {
-    border: 1px solid #ccc;
+    border: 1px solid white;
+    background-color: #3E5F8A;
+    z-index: -1;
 }
