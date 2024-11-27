@@ -22,6 +22,11 @@ function createCircle(radius, color) {
     return circle;
 }
 
+function addOnePoint(group) {
+    group.add(createCircle(5, 'white'));
+    return group;
+}
+
 function createText(text, fontSize, color) {
     const t = new fabric.Text(text, {
     fontSize: fontSize,
@@ -32,36 +37,40 @@ function createText(text, fontSize, color) {
     return t;
 }
 
-function createCell(text, x, y, colorOfDiamond, colorOfSector, colorOfCircle) {
-    const group = new fabric.Group([ createDiamond(92, 92, colorOfDiamond) ], {
+function createCell(x, y, colorOfDiamond, colorOfSector, colorOfCircle) {
+    const group = new fabric.Group([ createDiamond(84, 84, colorOfDiamond) ], {
     left: x,
     top: y,
     hoverCursor: 'pointer',
     selectable: false
     });
-    group.add(createCircle(46, colorOfCircle));
-    createSectors(group, 46, colorOfSector);
-    group.add(createCircle(38, colorOfCircle));
-    group.add(createCircle(35, colorOfSector));
-    group.add(createCircle(33, colorOfCircle));
+    group.add(createCircle(42, colorOfCircle));
+    createSectors(group, 42, colorOfSector);
+    group.add(createCircle(35, colorOfCircle));
+    group.add(createCircle(32, colorOfSector));
+    group.add(createCircle(31, colorOfCircle));
+    return group;
+}
+
+function addText(group, text) {
     group.add(createText(text, 13, 'yellow'));
     return group;
 }
 
-function createGreenCell(text, x, y) {
-    const group = createCell(text, x, y, '#1E5945', '#004524', '#44944A');
+function createGreenCell(x, y) {
+    const group = createCell(x, y, '#1E5945', '#004524', '#44944A');
     greenCells.push(group);
     return group;
 }
 
-function createBlueCell(text, x, y) {
-    const group = createCell(text, x, y, '#1B5583', '#003153', '#1560BD');
+function createBlueCell(x, y) {
+    const group = createCell(x, y, '#1B5583', '#003153', '#1560BD');
     blueCells.push(group);
     return group;
 }
 
-function createRedCell(text, x, y) {
-    const group = createCell(text, x, y, '#900020', '#7B001C', '#E32636');
+function createRedCell(x, y) {
+    const group = createCell(x, y, '#900020', '#7B001C', '#E32636');
     redCells.push(group);
     return group;
 }
