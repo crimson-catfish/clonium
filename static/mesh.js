@@ -29,12 +29,8 @@ class Mesh {
     drawCell(color, countOfPoints) {
         this.isContainCell = true;
         let coord = this.getCoord(this.x, this.y, this.z);
-        console.log("x до: " + coord[0]);
-        console.log("y до: " + coord[1]);
         let x = coord[0] + cellLeft;
         let y = coord[1] + cellTop;
-        console.log("x после: " + x);
-        console.log("y после: " + y);
         switch (color) {
             case 'red':
                 this.cell = createRedCell(x, y);
@@ -49,7 +45,7 @@ class Mesh {
                 console.log("Неизвестный цвет");
                 break;
         }
-        addOnePoint(this.cell);
+        addPoints(this.cell, countOfPoints);
         add(this.cell);
     }
 
@@ -85,6 +81,15 @@ class Field {
     drawCell(x, y, color, countOfPoints) {
         this.meshes[this.coordsToMeshes[[x, y]]].drawCell(color, countOfPoints);
     }
+
+    createField() {
+    for (let y = 0; y < 9 * sizeOfMesh + 0.1; y += 1.5 * sizeOfMesh) {
+        let offset = Math.abs(y / (1.5 * sizeOfMesh) - 3) * (Math.sqrt(3) / 2) * sizeOfMesh;
+        for (let x = offset; x < width - offset - 0.1; x += Math.sqrt(3) * sizeOfMesh) {
+            add(createHexagon(x, y, sizeOfMesh));
+        }
+    }
+}
 
     move(x1, y1, x2, y2) {
 
