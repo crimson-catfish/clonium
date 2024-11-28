@@ -1,9 +1,4 @@
-const width = 716.44;
-const height = 650;
-const sizeOfMesh = height / 11;
 const sizeOfCell = 84;
-const cellLeft = (Math.sqrt(3) * sizeOfMesh) / 2 - (Math.sqrt(2) * sizeOfCell) / 2;
-const cellTop = (2 * sizeOfMesh) / 2 - (Math.sqrt(2) * sizeOfCell) / 2;
 
 function createDiamond(width, height, color) {
     const diamond = new fabric.Rect({
@@ -116,8 +111,13 @@ function createFullCell(x, y, color, countOfPoints) {
 }
 
 function addText(group, text) {
-    group.add(createText(text, 13, 'yellow'));
+    group.add(createText(text, sizeOfCell / 6.46, 'yellow'));
     return group;
+}
+
+function createCellWithText (x, y, color, text) {
+    cell = createColorCell(x, y, color);
+    return addText(cell, text);
 }
 
 function createGreenCell(x, y) {
