@@ -2,46 +2,32 @@ console.log("script started");
 
 const canvas = new fabric.Canvas('c1');
 
-let blueCell2 = createBlueCell(135, 15);
-blueCell2 = addText(blueCell2, '2');
-let blueCell3 = createBlueCell(135, 15);
-blueCell3 = addText(blueCell3, '3');
-let blueCell4 = createBlueCell(135, 15);
-blueCell4 = addText(blueCell4, '4');
+let blueCell2 = createCellWithText(135, 15, 'blue', '2');
+let blueCell3 = createCellWithText(135, 15, 'blue', '3');
+let blueCell4 = createCellWithText(135, 15, 'blue', '4');
 add(blueCell4);
 add(blueCell3);
 add(blueCell2);
 
-let redCellT = createRedCell(535, 15);
-redCellT = addText(redCellT, 'Треугольник');
-let redCellS = createRedCell(535, 15);
-redCellS = addText(redCellS, 'Квадрат');
-let redCellH = createRedCell(535, 15);
-redCellH = addText(redCellH, 'Гексагон');
+let redCellT = createCellWithText(535, 15, 'red', 'Треугольник');
+let redCellS = createCellWithText(535, 15, 'red', 'Квадрат');
+let redCellH = createCellWithText(535, 15, 'red', 'Гексагон');
 add(redCellH);
 add(redCellS);
 add(redCellT);
 
-let greenCell = createGreenCell(335, 180);
-greenCell = addText(greenCell, 'Начать игру');
-let greenCellN = createGreenCell(335, 180);
-greenCellN = addText(greenCellN, 'Выберите\n   число\n  игроков');
-let greenCellF = createGreenCell(335, 180);
-greenCellF = addText(greenCellF, 'Выберите\n   форму\n     поля');
+let greenCell = createCellWithText(335, 180, 'green', 'Начать игру');
+let greenCellN = createCellWithText(335, 180, 'green', 'Выберите\n   число\n  игроков');
+let greenCellF = createCellWithText(335, 180, 'green', 'Выберите\n   форму\n     поля');
 add(greenCellF);
 add(greenCellN);
 add(greenCell);
-
-const shadow = new fabric.Shadow({
-            color: 'black',
-            blur: 30
-        });
 
 canvas.on('mouse:over', function(e) {
     if (e.target && e.target != greenCellN && e.target != greenCellF) {
         if (e.target == greenCell && (!flagSelectedBlue || !flagSelectedRed)) {}
         else {
-            e.target.set('shadow', shadow);
+            e.target.set('shadow', createShadow('black', 10));
             canvas.requestRenderAll();
         }
     }
