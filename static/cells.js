@@ -110,6 +110,11 @@ function createCell(x, y, colorOfDiamond, colorOfSector, colorOfCircle) {
     return group;
 }
 
+function createFullCell(x, y, color, countOfPoints) {
+    cell = createColorCell(x, y, color);
+    return addPoints(cell, countOfPoints);
+}
+
 function addText(group, text) {
     group.add(createText(text, 13, 'yellow'));
     return group;
@@ -131,6 +136,15 @@ function createRedCell(x, y) {
     const group = createCell(x, y, '#900020', '#7B001C', '#E32636');
     redCells.push(group);
     return group;
+}
+
+function createColorCell(x, y, color) {
+    switch (color) {
+        case 'red': return createRedCell(x, y);
+        case 'blue': return createBlueCell(x, y);
+        case 'green': return createGreenCell(x, y);
+        default: console.log('Невозможно создать ячейку с таким цветом');
+    }
 }
 
 function createSector(color, angleStart, angleEnd, radius, centerX, centerY) {
