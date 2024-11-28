@@ -1,3 +1,10 @@
+const width = 716.44;
+const height = 650;
+const sizeOfMesh = height / 11;
+const sizeOfCell = 84;
+const cellLeft = (Math.sqrt(3) * sizeOfMesh) / 2 - (Math.sqrt(2) * sizeOfCell) / 2;
+const cellTop = (2 * sizeOfMesh) / 2 - (Math.sqrt(2) * sizeOfCell) / 2;
+
 function createDiamond(width, height, color) {
     const diamond = new fabric.Rect({
     originX: 'center',
@@ -23,7 +30,7 @@ function createCircle(radius, color) {
 }
 
 function addOnePoint(group) {
-    group.add(createCircle(5, 'white'));
+    group.add(createCircle(sizeOfCell / 16.8, 'white'));
     return group;
 }
 
@@ -38,17 +45,17 @@ function createText(text, fontSize, color) {
 }
 
 function createCell(x, y, colorOfDiamond, colorOfSector, colorOfCircle) {
-    const group = new fabric.Group([ createDiamond(84, 84, colorOfDiamond) ], {
+    const group = new fabric.Group([ createDiamond(sizeOfCell, sizeOfCell, colorOfDiamond) ], {
     left: x,
     top: y,
     hoverCursor: 'pointer',
     selectable: false
     });
-    group.add(createCircle(42, colorOfCircle));
-    createSectors(group, 42, colorOfSector);
-    group.add(createCircle(35, colorOfCircle));
-    group.add(createCircle(32, colorOfSector));
-    group.add(createCircle(31, colorOfCircle));
+    group.add(createCircle(sizeOfCell / 2, colorOfCircle));
+    createSectors(group, sizeOfCell / 2, colorOfSector);
+    group.add(createCircle(sizeOfCell / 2.4, colorOfCircle));
+    group.add(createCircle(sizeOfCell / 2.625, colorOfSector));
+    group.add(createCircle(sizeOfCell / 2.71, colorOfCircle));
     return group;
 }
 
@@ -111,6 +118,10 @@ function createSectors(group, radius, colorOfSector) {
 
 function add(object) {
     canvas.add(object);
+}
+
+function del(object) {
+    canvas.delete(object);
 }
 
 const blueCells = [];
