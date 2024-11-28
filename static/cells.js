@@ -29,9 +29,60 @@ function createCircle(radius, color) {
     return circle;
 }
 
-function addOnePoint(group) {
-    group.add(createCircle(sizeOfCell / 16.8, 'white'));
-    return group;
+function createOnePoint(group) {
+    return group.add(createSupportiveGroup([createCircle(sizeOfCell / 16.8, 'white')]));
+}
+
+function createTwoPoint(group) {
+    point1 = moveObject(createCircle(sizeOfCell / 16.8, 'white'), -sizeOfCell / 11.2, 0);
+    point2 = moveObject(createCircle(sizeOfCell / 16.8, 'white'), sizeOfCell / 11.2, 0);
+    return group.add(createSupportiveGroup([point1, point2]));
+}
+
+function createThreePoint(group) {
+    point1 = moveObject(createCircle(sizeOfCell / 16.8, 'white'), -sizeOfCell / 11.2, sizeOfCell / 12.92);
+    point2 = moveObject(createCircle(sizeOfCell / 16.8, 'white'), 0, -sizeOfCell / 12.92);
+    point3 = moveObject(createCircle(sizeOfCell / 16.8, 'white'), sizeOfCell / 11.2, sizeOfCell / 12.92);
+    return group.add(createSupportiveGroup([point1, point2, point3]));
+}
+
+function createFourPoint(group) {
+    point1 = moveObject(createCircle(sizeOfCell / 16.8, 'white'), -sizeOfCell / 11.2, sizeOfCell / 11.2);
+    point2 = moveObject(createCircle(sizeOfCell / 16.8, 'white'), sizeOfCell / 11.2, sizeOfCell / 11.2);
+    point3 = moveObject(createCircle(sizeOfCell / 16.8, 'white'), -sizeOfCell / 11.2, -sizeOfCell / 11.2);
+    point4 = moveObject(createCircle(sizeOfCell / 16.8, 'white'), sizeOfCell / 11.2, -sizeOfCell / 11.2);
+    return group.add(createSupportiveGroup([point1, point2, point3, point4]));
+}
+
+function createFivePoint(group) {
+    point1 = moveObject(createCircle(sizeOfCell / 16.8, 'white'), -sizeOfCell / 9.88, sizeOfCell / 9.88);
+    point2 = moveObject(createCircle(sizeOfCell / 16.8, 'white'), sizeOfCell / 9.88, sizeOfCell / 9.88);
+    point3 = moveObject(createCircle(sizeOfCell / 16.8, 'white'), -sizeOfCell / 9.88, -sizeOfCell / 9.88);
+    point4 = moveObject(createCircle(sizeOfCell / 16.8, 'white'), sizeOfCell / 9.88, -sizeOfCell / 9.88);
+    point5 = createCircle(sizeOfCell / 16.8, 'white');
+    return group.add(createSupportiveGroup([point1, point2, point3, point4, point5]));
+}
+
+function createSixPoint(group) {
+    point1 = moveObject(createCircle(sizeOfCell / 16.8, 'white'), -sizeOfCell / 11.2, -sizeOfCell / 5.6);
+    point2 = moveObject(createCircle(sizeOfCell / 16.8, 'white'), sizeOfCell / 11.2, -sizeOfCell / 5.6);
+    point3 = moveObject(createCircle(sizeOfCell / 16.8, 'white'), -sizeOfCell / 11.2, 0);
+    point4 = moveObject(createCircle(sizeOfCell / 16.8, 'white'), sizeOfCell / 11.2, 0);
+    point5 = moveObject(createCircle(sizeOfCell / 16.8, 'white'), -sizeOfCell / 11.2, sizeOfCell / 5.6);
+    point6 = moveObject(createCircle(sizeOfCell / 16.8, 'white'), sizeOfCell / 11.2, sizeOfCell / 5.6);
+    return group.add(createSupportiveGroup([point1, point2, point3, point4, point5, point6]));
+}
+
+function addPoints(group, countOfPoints) {
+    switch (countOfPoints) {
+        case 1: return createOnePoint(group);
+        case 2: return createTwoPoint(group);
+        case 3: return createThreePoint(group);
+        case 4: return createFourPoint(group);
+        case 5: return createFivePoint(group);
+        case 6: return createSixPoint(group);
+        default: console.log("Невозможно нарисовать столько точек");
+    }
 }
 
 function createText(text, fontSize, color) {
@@ -122,6 +173,21 @@ function add(object) {
 
 function del(object) {
     canvas.delete(object);
+}
+
+function moveObject(object, left, top) {
+    object.set({left: object.left + left});
+    object.set({top: object.top + top});
+    return object;
+}
+
+function createSupportiveGroup(arrayOfObjects) {
+    let points = new fabric.Group(arrayOfObjects, {
+    originX: 'center',
+    originY: 'center',
+    selectable: false
+    });
+    return points;
 }
 
 const blueCells = [];
