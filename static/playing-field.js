@@ -1,7 +1,5 @@
 console.log("script started");
 const canvas = new fabric.Canvas('canvas');
-const width = 716.44;
-const height = 650;
 
 function createRadialGradient(radius, color1, color2) {
     const gradient = new fabric.Gradient({
@@ -37,6 +35,7 @@ function createHexagon(x, y, size) {
         fill: createRadialGradient(size, 'lightblue', '#4285B4'),
         left: x,
         top: y,
+        hoverCursor: 'default',
         /*strokeLineJoin: 'round',
         strokeWidth: 2,
         stroke: '#4285B4',*/
@@ -45,16 +44,32 @@ function createHexagon(x, y, size) {
     return hexagon;
 }
 
-function createField() {
-    size = height / 11;
+const shadow = new fabric.Shadow({
+            color: 'black',
+            blur: 10
+        });
 
-    for (let y = 0; y < 9 * size + 0.1; y += 1.5 * size) {
-        let offset = Math.abs(y / (1.5 * size) - 3) * (Math.sqrt(3) / 2) * size;
-        for (let x = offset; x < width - offset - 0.1; x += Math.sqrt(3) * size) {
-            add(createHexagon(x, y, size));
-        }
+canvas.on('mouse:over', function(e) {
+    if (e.target && (blueCells.includes(e.target) || redCells.includes(e.target) || greenCells.includes(e.target))) {
+        e.target.set('shadow', shadow);
+        canvas.requestRenderAll();
     }
+});
+
+canvas.on('mouse:out', function(e) {
+    if (e.target) {
+        e.target.set('shadow', false);
+        canvas.requestRenderAll();
+    }
+});
+
+const field = new Field();
+field.createField();
+
+function setStart () {
+    field.drawCell(-3, 1, 'red', 6);
+    field.drawCell(-3, 5, 'blue', 5);
 }
 
-createField();
+setStart();
 
