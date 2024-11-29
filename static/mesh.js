@@ -1,13 +1,21 @@
+const width = 716.44;
+const height = 650;
+const sizeOfMesh = height / 11;
+const cellLeft = (Math.sqrt(3) * sizeOfMesh) / 2 - (Math.sqrt(2) * sizeOfCell) / 2;
+const cellTop = (2 * sizeOfMesh) / 2 - (Math.sqrt(2) * sizeOfCell) / 2;
+
 class Mesh {
     x;
     y;
     z;
+    mesh;
     isContainCell = false;
     cell = null;
 
-    constructor (x, y) {
+    constructor (x, y, mesh) {
         this.x = x;
         this.y = y;
+        this.mesh = mesh;
         this.z = - (x + y);
     }
 
@@ -31,22 +39,12 @@ class Mesh {
         let coord = this.getCoord(this.x, this.y, this.z);
         let x = coord[0] + cellLeft;
         let y = coord[1] + cellTop;
-        switch (color) {
-            case 'red':
-                this.cell = createRedCell(x, y);
-                break;
-            case 'blue':
-                this.cell = createBlueCell(x, y);
-                break;
-            case 'green':
-                this.cell = createGreenCell(x, y);
-                break;
-            default:
-                console.log("Неизвестный цвет");
-                break;
-        }
-        addPoints(this.cell, countOfPoints);
+        this.cell = createFullCell(x, y, color, countOfPoints);
         add(this.cell);
+    }
+
+    addPoint() {
+        addPoint(this.cell);
     }
 
     deleteCell() {
@@ -58,12 +56,15 @@ class Mesh {
 class Field {
     meshes = [];
     coordsToMeshes = {};
+    indexesToCoords = {};
+    static countOfCell = 0;
 
     constructor () {
         let counter = 0;
+        let hexagons = Field.#createField();
         for (let x = 0; x > -4; x--) {
             for (let y = 0; y < Math.abs(x) + 4; y++) {
-                const mesh = new Mesh(x, y);
+                const mesh = new Mesh(x, y, hexagons[counter]);
                 this.meshes.push(mesh);
                 this.coordsToMeshes[[x, y]] = counter++;
             }
@@ -78,18 +79,28 @@ class Field {
         }
     }
 
-    drawCell(x, y, color, countOfPoints) {
-        this.meshes[this.coordsToMeshes[[x, y]]].drawCell(color, countOfPoints);
+    static #createField() {
+        let hexagons = [];
+        for (let y = 0; y < 9 * sizeOfMesh + 0.1; y += 1.5 * sizeOfMesh) {
+            let offset = Math.abs(y / (1.5 * sizeOfMesh) - 3) * (Math.sqrt(3) / 2) * sizeOfMesh;
+            for (let x = offset; x < width - offset - 0.1; x += Math.sqrt(3) * sizeOfMesh) {
+                let hexagon = createHexagon(x, y, sizeOfMesh);
+                hexagons.push(hexagon);
+                add(hexagon);
+            }
+        }
+        return hexagons;
     }
 
-    createField() {
-    for (let y = 0; y < 9 * sizeOfMesh + 0.1; y += 1.5 * sizeOfMesh) {
-        let offset = Math.abs(y / (1.5 * sizeOfMesh) - 3) * (Math.sqrt(3) / 2) * sizeOfMesh;
-        for (let x = offset; x < width - offset - 0.1; x += Math.sqrt(3) * sizeOfMesh) {
-            add(createHexagon(x, y, sizeOfMesh));
-        }
+    drawCell(x, y, color, countOfPoints) {
+        this.meshes[this.coordsToMeshes[[x, y]]].drawCell(color, countOfPoints);
+        this.indexesToCoords[Field.countOfCell] = [x, y];
+        Field.countOfCell += 1;
     }
-}
+
+    addPoint(x, y) {
+        this.meshes[this.coordsToMeshes[[x, y]]].addPoint();
+    }
 
     move(x1, y1, x2, y2) {
 
