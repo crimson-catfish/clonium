@@ -1,4 +1,8 @@
 const sizeOfCell = 84;
+const blueCells = [];
+const redCells = [];
+const greenCells = [];
+const cells = [];
 
 function createDiamond(width, height, color) {
     const diamond = new fabric.Rect({
@@ -80,6 +84,12 @@ function addPoints(group, countOfPoints) {
     }
 }
 
+function addPoint(group) {
+   let countOfPoints = group.item(21).getObjects().length;
+   group.remove(group.item(21));
+   addPoints(group, countOfPoints + 1);
+}
+
 function createText(text, fontSize, color) {
     const t = new fabric.Text(text, {
     fontSize: fontSize,
@@ -107,6 +117,7 @@ function createCell(x, y, colorOfDiamond, colorOfSector, colorOfCircle) {
 
 function createFullCell(x, y, color, countOfPoints) {
     cell = createColorCell(x, y, color);
+    cells.push(cell);
     return addPoints(cell, countOfPoints);
 }
 
@@ -251,7 +262,3 @@ function createSupportiveGroup(arrayOfObjects) {
     });
     return points;
 }
-
-const blueCells = [];
-const redCells = [];
-const greenCells = [];
