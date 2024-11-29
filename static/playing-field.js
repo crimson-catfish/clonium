@@ -16,12 +16,19 @@ canvas.on('mouse:out', function(e) {
 });
 
 const field = new Field();
-field.createField();
 
 function setStart () {
-    field.drawCell(-3, 1, 'red', 6);
+    field.drawCell(-3, 1, 'red', 1);
     field.drawCell(-3, 5, 'blue', 5);
 }
 
 setStart();
 
+canvas.on('mouse:down',  function(e) {
+    if (e.target && cells.includes(e.target)) {
+        let index = cells.indexOf(e.target);
+        let coords = field.indexesToCoords[index]
+        console.log(coords[0], coords[1]);
+        field.addPoint(coords[0], coords[1]);
+    }
+});
