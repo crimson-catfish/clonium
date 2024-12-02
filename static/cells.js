@@ -2,7 +2,6 @@ const sizeOfCell = 84;
 const blueCells = [];
 const redCells = [];
 const greenCells = [];
-const cells = [];
 
 function createDiamond(width, height, color) {
     const diamond = new fabric.Rect({
@@ -117,7 +116,6 @@ function createCell(x, y, colorOfDiamond, colorOfSector, colorOfCircle) {
 
 function createFullCell(x, y, color, countOfPoints) {
     cell = createColorCell(x, y, color);
-    cells.push(cell);
     return addPoints(cell, countOfPoints);
 }
 
@@ -245,7 +243,7 @@ function add(object) {
 }
 
 function del(object) {
-    canvas.delete(object);
+    canvas.remove(object)
 }
 
 function moveObject(object, left, top) {
