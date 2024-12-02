@@ -257,8 +257,28 @@ function moveObject(object, left, top) {
     return object;
 }
 
-function doAnimation(object, direction, distance) {
-    object.animate(direction, distance, {
+function numberToStringForAnimation (number) {
+    number = number.toString();
+    if (number[0] == '-') {
+        number = number.slice(0, 1) + '=' + number.slice(1);
+    }
+    else {
+        number = '+=' + number;
+    }
+    return number;
+}
+
+function delay(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+}
+
+function doAnimation(object, left, top) {
+    left = numberToStringForAnimation(left);
+    top = numberToStringForAnimation(top);
+    object.animate('left', left, {
+        onChange: canvas.renderAll.bind(canvas),
+        easing: fabric.util.ease.easeOutCubic
+    }).animate('top', top, {
         onChange: canvas.renderAll.bind(canvas),
         easing: fabric.util.ease.easeOutCubic
     });
