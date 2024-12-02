@@ -20,6 +20,12 @@ class Mesh {
         this.z = - (x + y);
     }
 
+    setCell(cell, color, isContainCell) {
+        this.cell = cell;
+        this.color = color;
+        this.isContainCell = isContainCell;
+    }
+
     getAdjacentCoord() {
         const result = [];
         const directions = [[-1, 0, 1], [0, -1, 1], [1, -1, 0], [1, 0, -1], [0, 1, -1], [-1, 1, 0]];
@@ -107,6 +113,7 @@ class Field {
         let cell = this.meshes[this.coordsToMeshes[[x, y]]].drawCell(color, countOfPoints);
         this.cells.push(cell);
         this.indexesToCells.push([x, y]);
+        return cell;
     }
 
     deleteCell(x, y){
@@ -128,7 +135,44 @@ class Field {
         this.meshes[this.coordsToMeshes[[x, y]]].replacePoint(numberOfPoint);
     }
 
-    move(x1, y1, z1, x2, y2, z2) {
+    async divide(srcCoordinates, dstCoordinates) {
+        let x = srcCoordinates[0];
+        let y = srcCoordinates[1];
+        let z = srcCoordinates[2];
+        let color = this.meshes[this.coordsToMeshes[[x, y]]].color;
+        this.deleteCell(x, y);
+        let cells = [];
+        for (let i = 0; i < dstCoordinates.length; i++) {
+            cells.push(this.drawCell(x, y, color, 1));
+        }
+        this.meshes[this.coordsToMeshes[[x, y]]].setCell(null, '', false);
+        let pointer = 0;
+        dstCoordinates.forEach(n => {
+            let x1 = n['coordinates'][0];
+            let y1 = n['coordinates'][1];
+            let z1 = n['coordinates'][2];
+            this.move(x, y, z, x1, y1, z1, cells[pointer]);
+            pointer += 1;
+        });
+        await delay(499);
+        pointer = 0;
+        dstCoordinates.forEach(n => {
+            let x1 = n['coordinates'][0];
+            let y1 = n['coordinates'][1];
+            let z1 = n['coordinates'][2];
+            if (n['isCell']) {
+                this.deleteCell(x1, y1);
+            }
+            this.meshes[this.coordsToMeshes[[x1, y1]]].setCell(cells[pointer], color, true);
+            pointer += 1;
+            this.replacePoint(x1, y1, n['numberOfPoint']);
+        });
+        await delay(499);
+    }
 
+    move(x1, y1, z1, x2, y2, z2, cell) {
+        let left = (z1 - z2 - y1 + y2) * Math.sqrt(3) * sizeOfMesh / 2;
+        let top = (x1 - x2) * 1.5 * sizeOfMesh;
+        doAnimation(cell, left, top);
     }
 }
