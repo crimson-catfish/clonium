@@ -257,6 +257,24 @@ function moveObject(object, left, top) {
     return object;
 }
 
+function doAnimation(object, direction, distance) {
+    object.animate(direction, distance, {
+        onChange: canvas.renderAll.bind(canvas),
+        easing: fabric.util.ease.easeOutCubic
+    });
+}
+
+function setPriority3(object1, object2, object3){
+    canvas.moveTo(object3, 1);
+    canvas.moveTo(object2, 2);
+    canvas.moveTo(object1, 3);
+}
+
+function setPriority2(object1, object2) {
+    canvas.moveTo(object2, 1);
+    canvas.moveTo(object1, 2);
+}
+
 function createSupportiveGroup(arrayOfObjects) {
     let points = new fabric.Group(arrayOfObjects, {
     originX: 'center',
