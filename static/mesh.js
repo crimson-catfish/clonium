@@ -50,6 +50,10 @@ class Mesh {
         addPoint(this.cell);
     }
 
+    replacePoint(numberOfPoint) {
+        replacePoint(this.cell, numberOfPoint);
+    }
+
     deleteCell() {
         let answerCell = this.cell;
         del(this.cell);
@@ -120,9 +124,11 @@ class Field {
         this.meshes[this.coordsToMeshes[[x, y]]].addPoint();
     }
 
+    replacePoint(x, y, numberOfPoint) {
+        this.meshes[this.coordsToMeshes[[x, y]]].replacePoint(numberOfPoint);
+    }
 
-
-    move(x1, y1, x2, y2) {
+    move(x1, y1, z1, x2, y2, z2) {
 
     }
 }
