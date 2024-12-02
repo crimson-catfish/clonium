@@ -54,17 +54,17 @@ let formOfField = 'triangle';
 canvas.on('mouse:down',  function(e) {
     if (e.target && blueCells.includes(e.target)) {
         if (flagSelectedBlue) {
-            doAnimation(blueCell2, 'left', '-=110');
-            doAnimation(blueCell3, 'top', '+=110');
-            doAnimation(blueCell4, 'left', '+=110');
+            doAnimation(blueCell2, -110, 0);
+            doAnimation(blueCell3, 0, 110);
+            doAnimation(blueCell4, 110, 0);
             flagSelectedBlue = false;
         }
         else {
-            doAnimation(blueCell2, 'left', '+=110');
-            doAnimation(blueCell3, 'top', '-=110');
-            doAnimation(blueCell4, 'left', '-=110');
+            doAnimation(blueCell2, 110, 0);
+            doAnimation(blueCell3, 0, -110);
+            doAnimation(blueCell4, -110, 0);
             if (flagGreenN) {
-                doAnimation(greenCellN, 'top', '-=100');
+                doAnimation(greenCellN, 0, -110);
                 flagGreenN = false;
             }
             if (e.target == blueCell2) {
@@ -86,17 +86,17 @@ canvas.on('mouse:down',  function(e) {
     }
     else if (e.target && redCells.includes(e.target)) {
         if (flagSelectedRed) {
-            doAnimation(redCellT, 'left', '-=110');
-            doAnimation(redCellS, 'top', '+=110');
-            doAnimation(redCellH, 'left', '+=110');
+            doAnimation(redCellT, -110, 0);
+            doAnimation(redCellS, 0, 110);
+            doAnimation(redCellH, 110, 0);
             flagSelectedRed = false;
         }
         else {
-            doAnimation(redCellT, 'left', '+=110');
-            doAnimation(redCellS, 'top', '-=110');
-            doAnimation(redCellH, 'left', '-=110');
+            doAnimation(redCellT, 110, 0);
+            doAnimation(redCellS, 0, -110);
+            doAnimation(redCellH, -110, 0);
             if (flagGreenF) {
-                doAnimation(greenCellF, 'top', '-=100');
+                doAnimation(greenCellF, 0, -110);
                 flagGreenF = false;
             }
             if (e.target == redCellT) {
@@ -121,11 +121,11 @@ canvas.on('mouse:down',  function(e) {
             sendSettingsAndGo(getSettings(numberOfPlayers, formOfField));
         }
         if (!flagSelectedBlue && !flagGreenN && !flagGreenF) {
-            doAnimation(greenCellN, 'top', '+=100');
+            doAnimation(greenCellN, 0, 110);
             flagGreenN = true;
         }
         if (!flagSelectedRed && !flagGreenF && !flagGreenN) {
-            doAnimation(greenCellF, 'top', '+=100');
+            doAnimation(greenCellF, 0, 110);
             flagGreenF = true;
         }
     }
