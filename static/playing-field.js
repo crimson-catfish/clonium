@@ -1,6 +1,11 @@
 console.log("script started");
 const canvas = new fabric.Canvas('canvas');
 
+const urlParts = window.location.href.split('/');
+const codeRoom = urlParts.slice(-1).join('/');
+const titleElement = document.querySelector('.title');
+titleElement.textContent += ' ' + codeRoom;
+
 async function handle(x, y, field, data) {
     field.addPoint(x, y);
     await delay(499);
