@@ -89,6 +89,11 @@ function addPoint(group) {
    addPoints(group, countOfPoints + 1);
 }
 
+function replacePoint(group, numberOfPoint) {
+    group.remove(group.item(21));
+    addPoints(group, numberOfPoint);
+}
+
 function createText(text, fontSize, color) {
     const t = new fabric.Text(text, {
     fontSize: fontSize,
