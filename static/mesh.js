@@ -11,6 +11,7 @@ class Mesh {
     mesh;
     isContainCell = false;
     cell = null;
+    color;
 
     constructor (x, y, mesh) {
         this.x = x;
@@ -36,11 +37,13 @@ class Mesh {
 
     drawCell(color, countOfPoints) {
         this.isContainCell = true;
+        this.color = color;
         let coord = this.getCoord(this.x, this.y, this.z);
         let x = coord[0] + cellLeft;
         let y = coord[1] + cellTop;
         this.cell = createFullCell(x, y, color, countOfPoints);
         add(this.cell);
+        return this.cell;
     }
 
     addPoint() {
@@ -48,16 +51,20 @@ class Mesh {
     }
 
     deleteCell() {
+        let answerCell = this.cell;
         del(this.cell);
-        isContainCell = false;
+        this.cell = null;
+        this.color = '';
+        this.isContainCell = false;
+        return answerCell;
     }
 }
 
 class Field {
     meshes = [];
     coordsToMeshes = {};
-    indexesToCoords = {};
-    static countOfCell = 0;
+    indexesToCells = [];
+    cells = [];
 
     constructor () {
         let counter = 0;
@@ -93,14 +100,27 @@ class Field {
     }
 
     drawCell(x, y, color, countOfPoints) {
-        this.meshes[this.coordsToMeshes[[x, y]]].drawCell(color, countOfPoints);
-        this.indexesToCoords[Field.countOfCell] = [x, y];
-        Field.countOfCell += 1;
+        let cell = this.meshes[this.coordsToMeshes[[x, y]]].drawCell(color, countOfPoints);
+        this.cells.push(cell);
+        this.indexesToCells.push([x, y]);
+    }
+
+    deleteCell(x, y){
+        let cell = this.meshes[this.coordsToMeshes[[x, y]]].deleteCell();
+        this.cells.splice(this.cells.indexOf(cell), 1);
+        for (let i = 0; i < this.indexesToCells.length; i++) {
+            if (this.indexesToCells[i].toString() === [x, y].toString()) {
+                this.indexesToCells.splice(i, 1);
+                break;
+            }
+        }
     }
 
     addPoint(x, y) {
         this.meshes[this.coordsToMeshes[[x, y]]].addPoint();
     }
+
+
 
     move(x1, y1, x2, y2) {
 
